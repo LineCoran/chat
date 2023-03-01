@@ -1,8 +1,8 @@
+import Home from "./pages/Home/Home";
+
 function App() {
   return (
-    <div style={{fontWeight: '900'}}>
-      Hello in your new chat
-    </div>
+    <Home />
   );
 }
 
