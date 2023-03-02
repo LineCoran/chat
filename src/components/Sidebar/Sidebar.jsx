@@ -1,5 +1,7 @@
 import { Bookmark, HelpOutline, RssFeed, Event, School, WorkOutline } from '@mui/icons-material';
 import './Sidebar.css';
+import { Users } from '../../dummyData';
+import Friend from '../Friend/Friend';
 
 export default function Sidebar() {
   return (
@@ -40,40 +42,17 @@ export default function Sidebar() {
         <button className='sidebarButton'>Show more</button>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImage' src="assets/person/3.jpeg" alt="" />
-            <span className="sidebarFriendName">Jane Doe</span>
-          </li>
 
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImage' src="assets/person/4.jpeg" alt="" />
-            <span className="sidebarFriendName">Jane Doe</span>
-          </li>
 
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImage' src="assets/person/5.jpeg" alt="" />
-            <span className="sidebarFriendName">Jane Doe</span>
-          </li>
-
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImage' src="assets/person/6.jpeg" alt="" />
-            <span className="sidebarFriendName">Jane Doe</span>
-          </li>
-
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImage' src="assets/person/7.jpeg" alt="" />
-            <span className="sidebarFriendName">Jane Doe</span>
-          </li>
-
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImage' src="assets/person/8.jpeg" alt="" />
-            <span className="sidebarFriendName">Jane Doe</span>
-          </li>
-
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImage' src="assets/person/9.jpeg" alt="" />
-            <span className="sidebarFriendName">Jane Doe</span>
-          </li>
+          {
+            Users.map((user) => 
+            <Friend
+              key={user.id}
+              username={user.username}
+              profilePicture={user.profilePicture}
+            />
+            )
+          }
         </ul>
       </div>
     </div>
