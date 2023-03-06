@@ -85,3 +85,10 @@
   cursor: pointer;
 }
 
+.error {
+  font-size: 14px;
+  color: rgb(236, 84, 84);
+  text-align: center;
+  margin: 0;
+}
+
