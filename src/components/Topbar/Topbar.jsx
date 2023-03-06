@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import "./Topbar.css";
 
 import React from 'react'
@@ -8,7 +8,9 @@ export default function Topbar() {
   return (
     <div className="topBarContainer">
       <div className="topBarLeft">
-        <span className="topBarLogo">LineSocial</span>
+        <Link to={"/"}>
+          <span className="topBarLogo">LineSocial</span>
+        </Link>
       </div>
       <div className="topBarCenter">
         <div className="searchBar">
@@ -35,7 +37,9 @@ export default function Topbar() {
             <span className="topBarIconBadge">4</span>
           </div>
         </div>
-        <img src="/assets/person/1.jpeg" alt="" className="topBarImage" />
+        <Link to={"/profile"}>
+          <img src="/assets/person/1.jpeg" alt="" className="topBarImage" />
+        </Link>
       </div>
     </div>
   )
