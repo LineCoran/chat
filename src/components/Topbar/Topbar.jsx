@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import "./Topbar.css";
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { Person, Search, Chat, Notifications } from "@mui/icons-material";
+import { AuthContext } from "../../context/authContext";
 
 export default function Topbar() {
+
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="topBarContainer">
       <div className="topBarLeft">
@@ -38,7 +42,7 @@ export default function Topbar() {
           </div>
         </div>
         <Link to={"/profile"}>
-          <img src="/assets/person/1.jpeg" alt="" className="topBarImage" />
+          <img src={currentUser.profilePic} alt="" className="topBarImage" />
         </Link>
       </div>
     </div>

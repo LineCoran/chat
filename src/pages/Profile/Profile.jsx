@@ -3,8 +3,12 @@ import Topbar from '../../components/Topbar/Topbar';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Feed from '../../components/Feed/Feed';
 import Rightbar from '../../components/Rightbar/Rightbar';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/authContext';
 
 export default function Profile() {
+
+  const { currentUser } = useContext(AuthContext);
   return (
     <>
       <Topbar />
@@ -17,7 +21,7 @@ export default function Profile() {
           </div>
 
           <div className="profileInfo">
-            <h4 className="profileInfoName">Alexey Kuzmichev</h4>
+            <h4 className="profileInfoName">{currentUser.name}</h4>
             <h4 className="profileInfoDesc">Hello my friends</h4>
           </div>
           

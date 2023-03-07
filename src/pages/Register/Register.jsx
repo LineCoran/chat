@@ -1,9 +1,11 @@
 import { useState } from "react";
 import "./Register.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
+
+  const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
     name: "",
@@ -15,6 +17,7 @@ export default function Register() {
   const [error, setError] = useState(false);
 
   const handleChange = (e) => setInputs(prev => {
+    setError(false);
     return {...prev, [e.target.name]: e.target.value }
   })
 
@@ -24,8 +27,8 @@ export default function Register() {
       const res =  await axios.post("http://localhost:4000/auth/register",
       inputs
       );
-      const data = res.data;
-      console.log(data);
+      const data = await res.data;
+      navigate("/login")
       setError(false);
     } catch (error) {
       setError(error.response.data)

@@ -13,7 +13,7 @@ function App() {
   //const currentUser = false;
 
   const ProtectedRoute = ({children}) => {
-     console.log('currentUser: ', currentUser)
+
     if (!currentUser) {
       console.log(currentUser)
       return <Navigate to={"/login"} />
@@ -35,7 +35,7 @@ function App() {
     },
     {
       path: "/",
-      element: <ProtectedRoute> <Profile /> </ ProtectedRoute>,
+      element: <ProtectedRoute> <Home /> </ ProtectedRoute>,
     },
   ])
 

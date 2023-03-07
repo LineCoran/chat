@@ -1,14 +1,33 @@
 import "./Login.css";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 
 export default function Login() {
-
+  const navigate = useNavigate();
+  const [error, setErorr] = useState(false);
+  const [inputs, setIputs] = useState({
+    username: "",
+    password: "",
+  })
+  
   const { login } = useContext(AuthContext);
-  const handleLogin = () => {
-    login();
+  const handleLogin = async (e) => {
+
+    try {
+      await login(inputs);
+      
+    } catch (error) {
+      setErorr(error);
+    }
+
+    navigate("/");
   }
+
+  const handleChange = (e) => setIputs(pre => {
+    setErorr(false);
+    return {...pre, [e.target.name]: e.target.value}
+  })
 
   return (
     <div className="login">
@@ -20,9 +39,10 @@ export default function Login() {
 
         <div className="loginRight">
           <div className="loginBox">
-            <input placeholder="Email" type="email" className="loginInput" />
-            <input placeholder="Password" type="password" className="loginInput" />
-            <button onClick={login} className="loginButton">Login</button>
+            <input name="username" onChange={handleChange} placeholder="Email" type="username" className="loginInput" />
+            <input name="password" onChange={handleChange} placeholder="Password" type="password" className="loginInput" />
+            {error && <p className="error">{error}</p>}
+            <button onClick={(e) => handleLogin(e)} className="loginButton">Login</button>
             <span className="loginForgot">Forgot Password?</span>
             <button className="loginRegisterButton"><Link to={"/register"}>Create a new account</Link></button>
           </div>
