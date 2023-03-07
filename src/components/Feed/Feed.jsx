@@ -3,8 +3,19 @@ import Share from '../Share/Share';
 import './Feed.css';
 import { Posts } from '../../dummyData';
 import { Users } from '../../dummyData';
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios';
+import { makeRequest } from '../../axios';
 
 export default function Feed() {
+
+  const { isLoading, error, data} = useQuery(['posts'], async () => {
+    const res = await makeRequest.get("/posts");
+    return res.data;
+  });
+  
+  console.log(data);
+
   return (
     <div className='feed'>
       <div className="feedWrapper">

@@ -1,27 +1,30 @@
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
   const [error, setErorr] = useState(false);
   const [inputs, setIputs] = useState({
     username: "",
     password: "",
   })
+
+  useEffect(() => {
+    if(currentUser) navigate('/')
+  }, [currentUser])
   
   const { login } = useContext(AuthContext);
   const handleLogin = async (e) => {
-
+    e.preventDefault();
     try {
       await login(inputs);
       
     } catch (error) {
-      setErorr(error);
+      setErorr(error.response.data);
     }
-
-    navigate("/");
   }
 
   const handleChange = (e) => setIputs(pre => {

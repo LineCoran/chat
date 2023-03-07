@@ -3,14 +3,15 @@ import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
 import { createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
-import "./App.css";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
+import "./App.css";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
 
-  //const currentUser = false;
+  const queryClient = new QueryClient()
 
   const ProtectedRoute = ({children}) => {
 
@@ -40,7 +41,9 @@ function App() {
   ])
 
   return (
-    <RouterProvider router={router}/>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}/>
+    </QueryClientProvider>
   );
 }
 
