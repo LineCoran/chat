@@ -1,6 +1,7 @@
-import './Post.css'
 import { MoreVert } from '@mui/icons-material';
 import { useState } from 'react';
+import moment from 'moment';
+import './Post.css'
 
 // export default function Post({date, desc = '', like, comment, photo, username, profilePicture}) {
 
@@ -19,9 +20,9 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img className='postProfileImage' src={post.profilePicture} alt="" />
+            <img className='postProfileImage' src='./assets/person/1.jpeg' alt="" />
             <span className='postUserName'>{post.name}</span>
-            <span className='postDate'>{post.createdAt}</span>
+            <span className='postDate'>{moment(post.createdAt).fromNow()}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
@@ -29,7 +30,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img className='postImage' src={post.image} alt="" />
+          <img className='postImage' src={`./upload/${post.image}`} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

@@ -11,6 +11,17 @@ export default function Share() {
   const [desc, setDesc] = useState('');
   const [image, setImage] = useState(null);
 
+  const uploadImage = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', image);
+      const res = await makeRequest.post('/upload', formData);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const mutation = useMutation({
     mutationFn: (newPost) => {
       return makeRequest.post("/posts", newPost)
@@ -20,25 +31,36 @@ export default function Share() {
     }
   })
 
-  const handleShare = () => {
-    mutation.mutate({desc, image});
+  const handleShare = async (e) => {
+    e.preventDefault();
+    let imageUrl = '';
+    if (image) imageUrl = await uploadImage();
+    mutation.mutate({desc, image: imageUrl});
+    setImage(null);
+    setDesc("");
   }
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className='shareProfileImg' src="assets/person/3.jpeg" alt="" />
-          <input
-            className='shareInput'
-            placeholder="What's in your mind"
-            onChange={(e) => setDesc(e.target.value)}
-             />
+          <div className="shareTopLeft">
+            <img className='shareProfileImg' src="assets/person/3.jpeg" alt="" />
+            <input
+              className='shareInput'
+              placeholder="What's in your mind"
+              onChange={(e) => setDesc(e.target.value)}
+              value={desc}
+            />
+            </div>
+          <div>
+            {image && <img className='imageUpload' alt='upload-image' src={URL.createObjectURL(image)}></img>}
+          </div>
         </div>
         <hr className="shareHr" />
         <div className="shareBottom">
           <div className="shareOptions">
             <div className="shareOption">
-            <input type="file" id='file' style={{display: "none"}} onChange={e => setImage(e.target.file[0])} />
+            <input type="file" id='file' style={{display: "none"}} onChange={e => setImage(e.target.files[0])} />
               <label htmlFor="file">
                 <PermMedia htmlColor='tomato' className='shareIcon' />
                 <span id='file' className='shareOptionText'>Photo or video</span>

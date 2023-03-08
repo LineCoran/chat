@@ -12,6 +12,11 @@
 
 .shareTop {
   display: flex;
+  justify-content: space-between;
+}
+
+.shareTopLeft {
+  display: flex;
   align-items: center;
 }
 
@@ -19,6 +24,13 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.imageUpload {
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   margin-right: 10px;
 }
