@@ -13,28 +13,17 @@ export default function Feed() {
     const res = await makeRequest.get("/posts");
     return res.data;
   });
-  
-  console.log(data);
 
   return (
     <div className='feed'>
       <div className="feedWrapper">
         <Share />
         {
-          Posts.map((post) => {
-            const {username, profilePicture} = Users.filter(user => user.id === post.userId)[0];
-            return <Post
-              key={post.id}
-              date={post.date}
-              desc={post.desc}
-              like={post.like}
-              comment={post.comment}
-              username={username}
-              profilePicture={profilePicture}
-              photo={post.photo}/>
-          }   
+          error ? <p>{error}</p> :
+          isLoading
+          ? <p>Loading... </p>
+          : data.map((post, index) => <Post key={Math.random()} post={post} />
         )}
-        <Post />
       </div>
     </div>
   )
