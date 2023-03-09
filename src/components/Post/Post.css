@@ -71,9 +71,14 @@
   font-size: 15px;
 }
 
-.postComentText {
+.postBottomRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   cursor: pointer;
+}
+
+.postComentText {
   font-size: 15px;
-  border-bottom: 1px dashed gray;
 }
 

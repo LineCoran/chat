@@ -1,19 +1,32 @@
 import { MoreVert } from '@mui/icons-material';
-import { useState } from 'react';
+import { useContext, useReducer, useState } from 'react';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import moment from 'moment';
 import './Post.css'
-
-// export default function Post({date, desc = '', like, comment, photo, username, profilePicture}) {
+import { IconButton } from '@mui/material';
+import Comments from '../Comments/Comments';
+import { useQuery } from '@tanstack/react-query';
+import { makeRequest } from '../../axios';
+import { AuthContext } from '../../context/authContext';
 
 export default function Post({ post }) {
 
-  const [likeCount, setLikeCount] = useState(10);
-  const [isLiked, setIsLiked] = useState(false);
+  // const [likeCount, setLikeCount] = useState(10);
+  const { currentUser } =  useContext(AuthContext);
   
-  const likeHandler = () => {
-    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
-    setIsLiked(!isLiked);
-  }
+  const [show, setShow] = useReducer(show => !show, false);
+  
+  // const likeHandler = () => {
+  //   setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+  //   setIsLiked(!isLiked);
+  // }
+
+  const { isLoading, error, data} = useQuery(['likes', post.id], async () => {
+    const res = await makeRequest.get("/likes?postId="+post.id);
+    return res.data;
+  });
 
   return (
     <div className='post'>
@@ -34,14 +47,23 @@ export default function Post({ post }) {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className='likeIcon' onClick={likeHandler} src="assets/like.png" alt="" />
-            <img className='likeIcon' onClick={likeHandler} src="assets/heart.png" alt="" />
-            <span className="postLikeCounter">25 people like it</span>
+            <IconButton>
+              { data && data.includes(currentUser.id) ? <FavoriteIcon htmlColor='red' /> : <FavoriteBorderIcon />}
+            </IconButton>
+            <span className="postLikeCounter">
+              { isLoading 
+              ? 0
+              : `${data.length} Likes`
+            }
+            </span>
+               
           </div>
-          <div className="postBottomRight">
-            <span className='postComentText'>25 comments</span>
+          <div className="postBottomRight" onClick={setShow}>
+            <ChatBubbleOutlineIcon />
+            <span className='postComentText'>25 Comments</span>
           </div>
         </div>
+        { show && <Comments postId={post.id} /> }
       </div>
     </div>
   )
