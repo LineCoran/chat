@@ -7,7 +7,7 @@ import moment from 'moment';
 import './Post.css'
 import { IconButton } from '@mui/material';
 import Comments from '../Comments/Comments';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '../../axios';
 import { AuthContext } from '../../context/authContext';
 
@@ -17,16 +17,27 @@ export default function Post({ post }) {
   const { currentUser } =  useContext(AuthContext);
   
   const [show, setShow] = useReducer(show => !show, false);
-  
-  // const likeHandler = () => {
-  //   setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
-  //   setIsLiked(!isLiked);
-  // }
 
   const { isLoading, error, data} = useQuery(['likes', post.id], async () => {
     const res = await makeRequest.get("/likes?postId="+post.id);
     return res.data;
   });
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (liked) => {
+      if (liked) return makeRequest.delete("/likes?postId="+post.id);
+      return makeRequest.post("/likes", {postId: post.id});
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['likes']})
+    }
+  })
+
+  const handleLike = () => {
+    mutation.mutate(data.includes(currentUser.id))
+  }
 
   return (
     <div className='post'>
@@ -47,8 +58,10 @@ export default function Post({ post }) {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <IconButton>
-              { data && data.includes(currentUser.id) ? <FavoriteIcon htmlColor='red' /> : <FavoriteBorderIcon />}
+            <IconButton onClick={handleLike}>
+              { data && data.includes(currentUser.id) 
+              ? <FavoriteIcon  htmlColor='red' /> 
+              : <FavoriteBorderIcon />}
             </IconButton>
             <span className="postLikeCounter">
               { isLoading 

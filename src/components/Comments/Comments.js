@@ -9,7 +9,7 @@ import './Comments.css';
 export default function Comments({postId}) {
 
 
-  const {isLoading, error, data} = useQuery(['comments'], async () => {
+  const {isLoading, error, data} = useQuery(['comments', postId], async () => {
     const res = await makeRequest.get('/comments?postId='+postId);
     return res.data;
   })
@@ -18,6 +18,7 @@ export default function Comments({postId}) {
   const {currentUser} = useContext(AuthContext);
 
   const [desc, setDesc] = useState('');
+
 
   const mutation = useMutation({
     mutationFn: (newComment) => {
