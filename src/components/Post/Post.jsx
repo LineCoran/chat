@@ -1,19 +1,19 @@
-import { MoreVert } from '@mui/icons-material';
-import { useContext, useReducer, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import { AuthContext } from '../../context/authContext';
+import { MoreVert } from '@mui/icons-material';
+import { useContext, useReducer } from 'react';
+import Comments from '../Comments/Comments';
+import { IconButton } from '@mui/material';
+import { makeRequest } from '../../axios';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import './Post.css'
-import { IconButton } from '@mui/material';
-import Comments from '../Comments/Comments';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { makeRequest } from '../../axios';
-import { AuthContext } from '../../context/authContext';
 
 export default function Post({ post }) {
 
-  // const [likeCount, setLikeCount] = useState(10);
   const { currentUser } =  useContext(AuthContext);
   
   const [show, setShow] = useReducer(show => !show, false);
@@ -44,7 +44,9 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img className='postProfileImage' src='./assets/person/1.jpeg' alt="" />
+            <Link to={`/profile/${post.userId}`}>
+              <img className='postProfileImage' src={post.profilePic} alt="" />
+            </Link>
             <span className='postUserName'>{post.name}</span>
             <span className='postDate'>{moment(post.createdAt).fromNow()}</span>
           </div>

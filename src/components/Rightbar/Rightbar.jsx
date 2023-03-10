@@ -36,18 +36,19 @@ export default function Rightbar({ profile }) {
         <div className="rightBarInfo">
           <div className="rightBarInfoItem">
             <span className="rightbarInfoKey">City: </span>
-            <span className="rightbarInfoValues">New York</span>
+            <span className="rightbarInfoValues">{profile.city}</span>
           </div>
 
           <div className="rightBarInfoItem">
-            <span className="rightbarInfoKey">Rrom: </span>
-            <span className="rightbarInfoValues">Madrid</span>
+            <span className="rightbarInfoKey">Age: </span>
+            <span className="rightbarInfoValues">{profile.age}</span>
           </div>
 
           <div className="rightBarInfoItem">
-            <span className="rightbarInfoKey">Relationship</span>
-            <span className="rightbarInfoValues">Single</span>
+            <span className="rightbarInfoKey">Birthday: </span>
+            <span className="rightbarInfoValues">{profile.birthday}</span>
           </div>
+
         </div>
         <h4 className='rightBarTitle'>User information</h4>
         <div className="rightbarFollowings">

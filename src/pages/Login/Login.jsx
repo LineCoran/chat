@@ -14,7 +14,7 @@ export default function Login() {
 
   useEffect(() => {
     if(currentUser) navigate('/')
-  }, [currentUser])
+  }, [currentUser, navigate])
   
   const { login } = useContext(AuthContext);
   const handleLogin = async (e) => {

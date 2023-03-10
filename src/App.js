@@ -31,7 +31,7 @@ function App() {
       element: <Register />,
     },
     {
-      path: "/profile",
+      path: "/profile/:id",
       element: <ProtectedRoute> <Profile /> </ ProtectedRoute>,
     },
     {
