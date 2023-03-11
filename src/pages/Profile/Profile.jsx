@@ -1,17 +1,14 @@
-import './Profile.css';
 import Topbar from '../../components/Navbar/Navbar';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Feed from '../../components/Feed/Feed';
 import Rightbar from '../../components/Rightbar/Rightbar';
-import { useContext } from 'react';
-import { AuthContext } from '../../context/authContext';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
 import { makeRequest } from '../../axios';
+import './Profile.css';
 
 export default function Profile() {
 
-  const { currentUser } = useContext(AuthContext);
   const location = useLocation();
   const [, , userId] = location.pathname.split('/');
 
@@ -40,7 +37,7 @@ export default function Profile() {
           
           <div className="profileRightTop"></div>
           <div className="profileRightBottom">
-            <Feed />
+            <Feed userId={userId} />
             <Rightbar profile={data}/>
           </div>
         </div>

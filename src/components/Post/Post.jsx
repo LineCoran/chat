@@ -23,6 +23,11 @@ export default function Post({ post }) {
     return res.data;
   });
 
+  const {isLoading: commentsIsLoading, error: commentsError, data: postComments} = useQuery(['comments', post.id], async () => {
+    const res = await makeRequest.get('/comments?postId='+post.id);
+    return res.data;
+  })
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -56,7 +61,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img className='postImage' src={`./upload/${post.image}`} alt="" />
+          <img className='postImage' src={post.image} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
@@ -75,10 +80,11 @@ export default function Post({ post }) {
           </div>
           <div className="postBottomRight" onClick={setShow}>
             <ChatBubbleOutlineIcon />
-            <span className='postComentText'>25 Comments</span>
+            <span className='postComentText'>
+              {postComments ? `${postComments.length} comments` : `Loading...`}</span>
           </div>
         </div>
-        { show && <Comments postId={post.id} /> }
+        { show && <Comments commentsIsLoading={commentsIsLoading} postId={post.id} comments={postComments}/> }
       </div>
     </div>
   )

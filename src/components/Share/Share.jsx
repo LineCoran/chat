@@ -3,10 +3,13 @@ import { PermMedia, Label, Room, EmojiEmotions } from '@mui/icons-material';
 import { useState } from 'react';
 import { makeRequest } from '../../axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/authContext';
 
 export default function Share() {
 
   const queryClient = useQueryClient();
+  const { currentUser } = useContext(AuthContext);
 
   const [desc, setDesc] = useState('');
   const [image, setImage] = useState(null);
@@ -44,7 +47,7 @@ export default function Share() {
       <div className="shareWrapper">
         <div className="shareTop">
           <div className="shareTopLeft">
-            <img className='shareProfileImg' src="assets/person/3.jpeg" alt="" />
+            <img className='shareProfileImg' src={currentUser.profilePic} alt="" />
             <input
               className='shareInput'
               placeholder="What's in your mind"

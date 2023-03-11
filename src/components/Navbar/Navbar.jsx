@@ -1,44 +1,68 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import { IconButton } from "@mui/material";
 
 import React, { useContext } from 'react'
-import { Person, Search, Chat, Notifications } from "@mui/icons-material";
+import { Search } from "@mui/icons-material";
 import { AuthContext } from "../../context/authContext";
 
 export default function Navbar() {
 
   const { currentUser } = useContext(AuthContext);
 
-  console.log(currentUser)
   return (
     <div className="topBarContainer">
       <div className="topBarLeft">
         <Link to={"/"}>
           <span className="topBarLogo">LineSocial</span>
         </Link>
+
+        <Link to={"/"}>
+          <IconButton>
+            <HomeOutlinedIcon />
+          </IconButton>
+        </Link>
+
+        <IconButton>
+          <DarkModeOutlinedIcon />
+        </IconButton>
+        
+        <IconButton>
+          <GridViewOutlinedIcon />
+        </IconButton>
       </div>
+
       <div className="topBarCenter">
         <div className="searchBar">
           <Search className="searchBarIcon" />
-          <input placeholder="Search for friends, post or any video..." className="searchInput" />
+          <input placeholder="Search..." className="searchInput" />
         </div>
       </div>
+
       <div className="topBarRight">
-        <div className="topBarLinks">
-          <span className="topBarLink">Homepage</span>
-          <span className="topBarLink">Timeline</span>
-        </div>
         <div className="topBarIcons">
           <div className="topBarIconItem">
-            <Person />
+            <IconButton>
+              <PersonOutlinedIcon />
+            </IconButton>
             <span className="topBarIconBadge">1</span>
           </div>
           <div className="topBarIconItem">
-            <Chat />
+            <IconButton>
+              <EmailOutlinedIcon />
+            </IconButton>
             <span className="topBarIconBadge">1</span>
           </div>
           <div className="topBarIconItem">
-            <Notifications />
+            <IconButton>
+              <NotificationsOutlinedIcon />
+            </IconButton>
             <span className="topBarIconBadge">4</span>
           </div>
         </div>

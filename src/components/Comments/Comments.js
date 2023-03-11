@@ -6,13 +6,10 @@ import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import './Comments.css';
 
-export default function Comments({postId}) {
+export default function Comments({commentsIsLoading, postId, comments}) {
 
 
-  const {isLoading, error, data} = useQuery(['comments', postId], async () => {
-    const res = await makeRequest.get('/comments?postId='+postId);
-    return res.data;
-  })
+ 
 
   const queryClient = useQueryClient();
   const {currentUser} = useContext(AuthContext);
@@ -49,9 +46,9 @@ export default function Comments({postId}) {
         />
         <button onClick={handleComment} className='commentWriteSend'>Send</button>
       </div>
-      { isLoading 
+      { commentsIsLoading 
       ? <p>Loading...</p>  
-      : data.map(comment => (
+      : comments.map(comment => (
           <div key={comment.id} className='comment'>
             <img className='commentPic' src={comment.profilePic} alt="" />
             <div className='commentInfo'>
