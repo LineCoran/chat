@@ -1,0 +1,43 @@
+.userPreview {
+  width: 100%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  margin: 30px 0;
+}
+
+.userPreviewWrapper {
+  padding: 10px;
+}
+
+.userPreviewWrapper {
+  display: flex;
+}
+
+.userPreviewLeft {
+  padding: 10px;
+  padding-left: 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.22);
+}
+
+.userPreviewLeftPic {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.userPreviewRight {
+  flex: 3;
+  padding: 10px;
+}
+
+.userPreviewRightName {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.userPreviewRightCity {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+}

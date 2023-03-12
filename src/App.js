@@ -6,6 +6,7 @@ import { createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
+import Users from "./pages/Users/Users";
 import "./App.css";
 
 function App() {
@@ -16,7 +17,6 @@ function App() {
   const ProtectedRoute = ({children}) => {
 
     if (!currentUser) {
-      console.log(currentUser)
       return <Navigate to={"/login"} />
     }
     return children;
@@ -33,6 +33,10 @@ function App() {
     {
       path: "/profile/:id",
       element: <ProtectedRoute> <Profile /> </ ProtectedRoute>,
+    },
+    {
+      path: "/users/",
+      element: <ProtectedRoute> <Users /> </ ProtectedRoute>,
     },
     {
       path: "/",

@@ -2,22 +2,19 @@ import Post from '../Post/Post';
 import Share from '../Share/Share';
 import { useQuery } from '@tanstack/react-query'
 import { makeRequest } from '../../axios';
-import { Button } from '@mui/material';
 import './Feed.css';
 
-export default function Feed({userId = null}) {
+export default function Feed({userId = null, isProfile, isMyProfile=true}) {
 
   const { isLoading, error, data} = useQuery(['posts'], async () => {
-
-    const query = (userId) ? `/posts/${userId}` : `/posts`;
+    const query = (isProfile) ? `/posts/${userId}` : `/posts`;
     const res = await makeRequest.get(query);
     return res.data;
   });
-
   return (
     <div className='feed'>
       <div className="feedWrapper">
-        { userId ? <Button variant='contained'>Follow</Button> : <Share /> }
+        {isMyProfile && <Share />}
         {
           error ? <p>{error}</p> :
           isLoading

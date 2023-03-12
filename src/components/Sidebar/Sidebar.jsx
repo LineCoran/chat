@@ -1,22 +1,27 @@
 import { Bookmark, HelpOutline, RssFeed, Event, School, WorkOutline } from '@mui/icons-material';
-import './Sidebar.css';
 import { Users } from '../../dummyData';
+import { Link } from 'react-router-dom';
 import Friend from '../Friend/Friend';
+import './Sidebar.css';
 
 export default function Sidebar() {
   return (
     <div className='sidebar'>
       <div className='sidebarWrapper'>
         <ul className="sidebarList">
-          <li className="sidebarListItem">
-            <RssFeed className='sidebarListItemIcon' />
-            <span className="sidebarListItemText">Feed</span>
-          </li>
-
-          <li className="sidebarListItem">
-            <Bookmark className='sidebarListItemIcon' />
-            <span className="sidebarListItemText">Bookmarks</span>
-          </li>
+          <Link to={'/'}>
+            <li className="sidebarListItem">
+              <RssFeed className='sidebarListItemIcon' />
+              <span className="sidebarListItemText">Feed</span>
+            </li>
+          </Link>
+          
+          <Link to={'/users'}>
+            <li className="sidebarListItem">
+              <Bookmark className='sidebarListItemIcon' />
+              <span className="sidebarListItemText">Users</span>
+            </li>
+          </Link>
 
           <li className="sidebarListItem">
             <HelpOutline className='sidebarListItemIcon' />
